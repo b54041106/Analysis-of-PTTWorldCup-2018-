@@ -12,51 +12,76 @@
     - 關鍵字排名表格
     - 關鍵字文字雲
 
-詳見：2018世足PTT淺析.pdf
+> 詳見：2018世足PTT淺析.pdf
 
 -----
 
 ##資料取得&處理
-    Usage:
-    python hw2.py
+Usage:
+> python hw2.py
+
 藉由requests和beautifulsoup爬取PTT世足版上的作者名稱、推文量、文章標題、發文日期，總共爬取500頁，共9998筆。
-已被刪除的文章回傳Nan。
-透過pandas以匯出為worldcup.csv
+- 已被刪除的文章回傳Nan。
+- 透過pandas以匯出為worldcup.csv
+> worldcup.csv
+![image](http://github.com/b54041106/PTTWorldCup---2018-/raw/master/表格預覽圖.JPG)
 
 -----
 
 ##圖表繪製
-1.  2018年每日發文量折線圖(半年)
+1.  折線圖
+- 2018年每日發文量折線圖(半年)
     Usage:
     > linechart_posts.py
-2. 2014-2018年推文量分布直方圖(四年、半年、一年、一年、一年、半年)
+    > 2018ptt上半年世足版每日貼文折線圖.png
+
+- 2018年6.7月發文量折線圖(兩個月)
+    Usage:
+    > linechart_posts_6&7.py
+    > 2018ptt6.7月世足版每日貼文折線圖.png
+
+2. 直方圖
+- 2014-2018年推文量分布直方圖(四年)
     Usage:
     > histogram_recommends.py
+    > Figure_推文數直方圖.png
+
+- 2014.2015.2016.2017.2018推文量分布直方圖(半年、一年、一年、一年、半年)
     > hist_2018.py 
     經由資料觀察，更改資料選取區間，並繪製分布直方圖。
-        爆：表示推文量大於100
-        --：表示該文章已被刪除
+        >>爆：表示推文量大於100
+        >>--：表示該文章已被刪除
     - 2018:csv_data.iloc[:7279,1]     --7279筆 #2018俄羅斯世足賽
+    > 2018ptt上半年世足版推文直方圖.png
     - 2017:csv_data.iloc[7279:7498,1] --219筆
+    > 2017ptt世足版推文直方圖.png
     - 2016:csv_data.iloc[7499:7622,1] --124筆
+    > 2016ptt世足版推文直方圖.png
     - 2015:csv_data.iloc[7623:7866,1] --244筆
+    > 2015ptt世足版推文直方圖.png
     - 2014:csv_data.iloc[7866:,1]     --2136筆 #2014巴西世足賽
+    > 2014ptt下半年世足版推文直方圖.png
 
 3. 2014-2018年發文量比例圓餅圖
     Usage:
-    >linechart_posts.py
+    >piechart_posts.py
         藉由歷年發文總量的數字，繪製圓餅圖。
-4.  關鍵字(#未完成!!!)
-    先將worldcup.csv(CSV逗號分隔)另存為keyword.py(CSV UTF-8逗號分隔)
+    >2014-2018世足貼文量圓餅圖.JPG
+
+4.  關鍵字
+- 使用jieba套件讀取worldcup.csv，並新增自定義的詞庫dict.txt，補上球員名字、綽號、足球術語等字詞，切分文章標題字句至keyword.csv，再以切分後的字詞製作文字雲。
     Usage:
-    > keyword.py
-    使用jieba套件並匯出關鍵字語詞頻至key.csv
-    #完成一半吧，尚須解碼，目前無法顯示繁體中文。
-    以關鍵字製作文字雲(#問題：無法使用字型)
+    > wordcloud_title.py 
+    > dict.txt     #自定義詞庫
+    > keyword.csv  #PTT標題字詞
+    > 文字雲_1.png 、 文字雲_2.png 、 文字雲_3.JPG
+
+- 使用jieba套件讀取worldcup.csv，切分文章標題字句及計算字詞出現頻率，以字典的形式匯出至noun.txt。
     Usage:
-    > wordcloud.py #參考五月天文本分析
-    > dict.txt     #自定義的詞庫
-    > chinese.txt  #停用字
+    > keywords.py
+    > noun.txt
+
+---
 
 ## 論點結果分析
 1.	鄉民關注度是否隨著傳統強隊爆冷淘汰而下滑？
@@ -67,6 +92,7 @@
 3.	賽事期間與非賽事期間的討論熱度差異？
 由直方圖的結果得知，非賽事期間的推文數以0到20佔據八成以上，且並無大於30的文章，但在本年度賽事期間，推文數”爆”的篇數甚至大於非賽事年度一年總和，可以見得關注度的落差程度非常巨大
 
+---
 
 ## 延伸
 1.	標題關鍵字分析：若能完成可加強佐證本文結論。
@@ -75,4 +101,3 @@
 4.	相關性分析：貼文與日期、標題與推文、推文與留言、標題與留言、關鍵字……。
 
 ---
-註： requirements.txt 使用"pip freeze > requirements.txt"，後來刪除以匯出的requiesments再去用pipreqs出現路徑出錯找不到檔案的問題無法排解，所以還原被丟到資源回收桶的檔案上傳了QAQ
