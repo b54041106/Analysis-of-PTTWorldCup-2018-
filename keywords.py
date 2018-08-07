@@ -1,22 +1,20 @@
 import jieba
-
-ret = open("keyword.csv", "r").read()
+jieba.load_userdict("dict.txt")
+jieba.set_dictionary("dict.txt")
+ret = open("keyword.csv", "r",encoding='utf-8-sig').read()
 seglist = jieba.cut(ret, cut_all=False)
+#print(type(seglist))
 
 import json
-hash = {}
-for item in seglist: 
-  if item in hash:
-    hash[item] += 1
-  else:
-    hash[item] = 1
-json.dump(hash,open("key.json","w"))
 
-fd = open("key.csv","w")
-fd.write("word,count\n")
-for k in hash:
-  fd.write("%s,%d\n"%(k.encode("utf8"),hash[k]))
+with open("noun.txt","w",encoding='utf-8-sig')as f:
 
-b=b'\xe7\xbe\x85'
-s1=b.decode(encoding='utf-8')
-print(s1)
+    hash = {}
+    for item in seglist: 
+    if item in hash:
+        hash[item] += 1
+    else:
+        hash[item] = 1
+        print(item)
+    
+    f.write(str(hash))
