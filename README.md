@@ -80,6 +80,10 @@ Usage:
     Usage:
     > keywords.py
     > noun.txt
+#123.csv print(a)
+#new1.csv print(key)字詞
+#new2.csv print(value)出現次數
+#sorted_keyword.csv.xlsx合併new1&2.csv,分類排序
 
 ---
 
